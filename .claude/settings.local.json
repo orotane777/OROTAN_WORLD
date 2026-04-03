@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(claude:*)",
+      "Bash(obsidian:*)",
+      "Bash(tasklist)"
+    ]
+  },
+  "memory": {
+    "path": ".claude/memory.md",
+    "autoMemory": true
+  }
+}
