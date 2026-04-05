@@ -1,60 +1,64 @@
 ---
 name: ingest
 description: Accepts external content (reports, YouTube, memos, books, etc.) and
-             automatically distributes updates to relevant pages in the Obsidian
-             vault. Triggered by requests like "organize this," "add to vault,"
+             prepares it for vault distribution. Handles input parsing, source
+             identification, duplicate checking, and format validation.
+             Triggered by requests like "organize this," "add to vault,"
              or "save this."
 ---
 
 # Ingest Skill
 
 ## Role
-Accept all incoming external knowledge input,
-then automatically distribute and update the appropriate pages in the vault.
+Receive all incoming external knowledge input and prepare it for routing.
+This skill handles input parsing only — routing and page updates are
+handled by agents via the /ingest command.
 
-## Processing Flow
-1. Identify input content + source information
-2. Call router-agent → category analysis + target page selection
-3. Report analysis results and confirm to proceed
-4. Delegate to specialized agents (parallel processing allowed)
-   - Stock content → stock-agent
-   - Coding content → coding-agent
-   - Life content → life-agent
-5. Collect completion reports from each agent
-6. Record in _system/UPDATE_LOG.md
-7. Update _system/SOURCE_REGISTRY.md
-8. Final completion report
+---
 
 ## Supported Input Formats
-All formats below are supported:
 - Direct text paste
-- File reference from _inbox/ folder
-- URL (process after summarizing web content)
-- File path
+- URL (fetch and summarize web content first)
+- File path reference
+- File in source/ folder
 
-## When Source Information Is Missing
-If the source is not specified, always ask for confirmation:
-```
+---
+
+## Step 1. Receive Input
+Identify what was provided:
+- Content body
+- Source information (name, date, type)
+
+If source information is missing, ask:
 출처 정보가 없습니다. 아래 중 선택해주세요.
-1. 직접 입력 (출처명 알려주세요)
-2. 내 메모/생각 [MEMO:자체]로 처리
-3. 출처 불명확 [WEB:불명확] + #확인필요 태그
-```
 
-## Final Completion Report Format
-```
-✅ Ingest 완료
+직접 입력 (출처명 알려주세요)
+내 메모/생각 → [MEMO:자체]
+출처 불명확 → [WEB:불명확] + #확인필요
 
-📋 처리 요약
-- 출처: [코드:출처명]
-- 카테고리: [주식/코딩/삶/복합]
 
-📝 업데이트된 페이지
-- [페이지 경로]: [추가된 내용 한줄 요약]
+---
 
-🆕 신규 생성된 페이지
-- [페이지 경로]
+## Step 2. Validate Source Format
+Confirm source tag format is correct:
+[YYYY-MM-DD][CODE:출처명]
 
-🔗 연결된 wikilink
-- [[A]] ↔ [[B]]
-```
+Valid codes: YT / RPT / WEB / BOOK / MEMO / MSG / LEC
+
+---
+
+## Step 3. Duplicate Check
+- Read `_system/SOURCE_REGISTRY.md`
+- Same source + same date → already processed → report and stop
+- Same source + different date → proceed as new content
+
+---
+
+## Step 4. Return Parsed Input
+Return structured summary for /ingest command to use:
+📥 Input Ready
+
+출처: [코드:출처명]
+날짜: YYYY-MM-DD
+중복: 없음 / 있음
+내용 요약: {3줄 이내}

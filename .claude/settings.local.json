@@ -11,5 +11,29 @@
   "memory": {
     "path": ".claude/memory.md",
     "autoMemory": true
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/context-warn.mjs"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/auto-review.mjs"
+          }
+        ]
+      }
+    ]
   }
 }

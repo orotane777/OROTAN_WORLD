@@ -11,7 +11,7 @@ description: Creates a new knowledge page using a category-specific standard
 Create new knowledge pages using standard templates.
 
 ## Processing Sequence
-1. Determine page type (company/industry/event/coding/life, etc.)
+1. Determine page type (company/industry/event/coding/life)
 2. Read `_system/VAULT_MAP.md` and confirm storage path
 3. Check whether a file already exists in that path
    - If yes → "Already exists. Add content via /ingest."
@@ -31,7 +31,7 @@ Create new knowledge pages using standard templates.
 ## Category-Specific Templates
 
 ### Company Page
-```
+```yaml
 ---
 tags: [주식, 기업]
 created: {오늘날짜}
@@ -39,9 +39,14 @@ updated: {오늘날짜}
 category: invest
 inv_category: company
 inv_category_lv2: {기업명}
-source_files:
+related_industry: []
+related_companies: []
+related_event: []
+related_macro: []
+source_files: []
 ---
-
+```
+```markdown
 # {기업명}
 
 > **한줄요약**: 
@@ -72,8 +77,10 @@ source_files:
 ## 📚 출처
 ```
 
+---
+
 ### Industry Page
-```
+```yaml
 ---
 tags: [주식, 산업]
 created: {오늘날짜}
@@ -81,9 +88,14 @@ updated: {오늘날짜}
 category: invest
 inv_category: industry
 inv_category_lv2: {산업명}
-source_files:
+related_industry: []
+related_companies: []
+related_event: []
+related_macro: []
+source_files: []
 ---
-
+```
+```markdown
 # {산업명}
 
 > **한줄요약**: 
@@ -110,8 +122,10 @@ source_files:
 ## 📚 출처
 ```
 
+---
+
 ### Event Page
-```
+```yaml
 ---
 tags: [주식, 사건]
 created: {오늘날짜}
@@ -119,9 +133,14 @@ updated: {오늘날짜}
 category: invest
 inv_category: event
 inv_category_lv2: {사건명}
-source_files:
+related_industry: []
+related_companies: []
+related_event: []
+related_macro: []
+source_files: []
 ---
-
+```
+```markdown
 # {사건명}
 
 > **한줄요약**: 
@@ -146,8 +165,10 @@ source_files:
 ## 📚 출처
 ```
 
+---
+
 ### Coding Page
-```
+```yaml
 ---
 tags: [코딩, {세부태그}]
 created: {오늘날짜}
@@ -155,9 +176,10 @@ updated: {오늘날짜}
 category: coding
 coding_category: {AI/Python/DB/etc}
 coding_category_lv2: {세부주제}
-source_files:
+source_files: []
 ---
-
+```
+```markdown
 # {주제명}
 
 > **한줄요약**: 
@@ -188,8 +210,10 @@ source_files:
 ## 📚 출처
 ```
 
+---
+
 ### Life Page
-```
+```yaml
 ---
 tags: [삶, {세부태그}]
 created: {오늘날짜}
@@ -197,9 +221,10 @@ updated: {오늘날짜}
 category: life
 life_category: {communication/health/history/psychology/relationship}
 life_category_lv2: {세부주제}
-source_files:
+source_files: []
 ---
-
+```
+```markdown
 # {주제명}
 
 > **한줄요약**: 
@@ -225,6 +250,8 @@ source_files:
 
 ## 📚 출처
 ```
+
+---
 
 ## Completion Report Format
 ```

@@ -89,6 +89,8 @@ Shall I proceed?
 ```
 
 #### Step 4. Execute
+- Read `knowledge/source-management.md` before executing
+- Read `knowledge/obsidian-format-footnote.md` for footnote rules
 - For each target knowledge page:
 
   **If page exists:**

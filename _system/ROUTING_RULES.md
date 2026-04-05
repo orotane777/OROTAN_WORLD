@@ -1,26 +1,58 @@
-# Routing Rules
+---
+tags: [meta, system]
+created: 2026-04-04
+updated: 2026-04-04
+---
 
-## Priority Order
-When processing input, follow this order:
-1. Read _system/VAULT_MAP.md
-2. Check _system/SOURCE_REGISTRY.md for duplicates
-3. Identify categories (invest/coding/life)
-4. Identify target pages
-5. Delegate to specialist agents
+# ROUTING_RULES
 
-## Conflict Resolution
-- Same content in multiple categories → update all
-- Duplicate source + same date → skip
-- Duplicate source + different date → process as new
+Agent routing decision rules.
+VAULT_MAP answers "where" — this file answers "how to decide."
 
-## New Page Creation
-- No existing file → create with template
-- Existing file → add to relevant section only
+---
 
-## Language Rules
-- System documents: English
-- Knowledge pages: Korean
-- Source tags: [YYYY-MM-DD][CODE:source]
-- Footnote keys: [^YY-MM-DD] (date-based, not sequential numbers); same-date conflicts use [^YY-MM-DD_2], [^YY-MM-DD_3]
-- Footnote source links: [[filename#section]] format (not bare [[filename]])
-- Wikilinks: [[Korean page name]]
+## Primary Classification
+
+### → stock-agent
+- Company name (Korean supported) / ticker / stock price / earnings
+- Industry trends / sector analysis
+- Policy / regulation / macro events
+- Analyst reports
+
+### → coding-agent
+- Code / AI / LLM / programming
+- Claude Code / harness engineering
+- Development tools / frameworks
+
+### → life-agent
+- Health / exercise / diet
+- Relationships / psychology
+- History / figures
+- Communication / persuasion
+
+---
+
+## Multi-Category Processing Order
+1. Create/update event page first
+2. Update company page
+3. Update industry page
+4. Connect wikilinks
+
+---
+
+## Ambiguous Classification
+- router-agent asks user directly for confirmation
+- No temporary placement without confirmation
+- No ADR entry until classification is confirmed
+
+---
+
+## Agent Priority Table
+| Situation | Agent to Call |
+|-----------|--------------|
+| All new input — first pass | router-agent |
+| 01_invest updates | stock-agent |
+| 02_coding updates | coding-agent |
+| 03_life updates | life-agent |
+| Vault sync / cleanup | maintenance-agent |
+| source/ file processing | digest-agent |

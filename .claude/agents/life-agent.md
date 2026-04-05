@@ -16,7 +16,7 @@ memory: project
 Dedicated to creating and updating all pages under 03_life/.
 
 ## Processing Sequence
-1. Read `rules/life.md`
+1. Read `knowledge/life.md`
 2. Read `rules/obsidian-format.md`
 3. Check whether the target page exists
 4. If it exists → read only the 📌 core summary section first
